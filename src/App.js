@@ -1,12 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
 import { Header } from "./components/Header/Header";
-import { Landing } from "./pages/Landing/Landing";
 import { Authentication } from "./pages/Authentication/Authentication";
 import { Profile } from "./pages/Profile/Profile";
 import { RequiresAuth } from "./components/Auth/RequiresAuth";
-
+import { Navigation } from "./components/Navigation/Navigation";
+import { UserSuggestions } from "./components/UserSuggestions/UserSuggestions";
 import "./App.css";
+import { Bookmarks } from "./components/Bookmarks/Bookmarks";
+import { Explore } from "./components/Explore/Explore";
+import { HomePage } from "./components/HomePage/HomePage";
 
 function App() {
   return (
@@ -14,13 +17,14 @@ function App() {
       <header>
         <Header />
       </header>
-      <div className="content">
+      <div className="content" style={{display:"flex"}}>
+      <Navigation />  
         <Routes>
           <Route
             path="/"
             element={
               <RequiresAuth>
-                <Landing />
+                <HomePage />
               </RequiresAuth>
             }
           />
@@ -29,7 +33,7 @@ function App() {
             path="/explore"
             element={
               <RequiresAuth>
-                <Landing />
+                <Explore />
               </RequiresAuth>
             }
           />
@@ -37,7 +41,7 @@ function App() {
             path="/bookmarks"
             element={
               <RequiresAuth>
-                <Landing />
+                <Bookmarks />
               </RequiresAuth>
             }
           />
@@ -53,6 +57,7 @@ function App() {
           <Route path="/login" element={<Authentication />} />
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
+        <UserSuggestions />
       </div>
     </div>
   );
