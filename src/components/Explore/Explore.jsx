@@ -1,4 +1,5 @@
 import { useData } from "../../contexts/DataContext";
+import { PostCard } from "../PostCard/PostCard";
 
 export const Explore = () => {
   const { posts } = useData();
@@ -7,13 +8,7 @@ export const Explore = () => {
     <div>
       <p>Explore</p>
       {posts.map((post) => (
-        <div style={{ border: "0.5px solid" }}>
-          <p>
-            {post.name} @{post.handle} {post.createdAt}
-          </p>
-          <p>{post.content}</p>
-          <p>{post.likes.likeCount}</p>
-        </div>
+        <PostCard key={post._id} post={post} />
       ))}
     </div>
   );
