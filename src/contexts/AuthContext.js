@@ -4,15 +4,26 @@ import { useNavigate } from "react-router-dom";
 const Auth = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : {};
+  const token = localStorage.getItem("token") ? true : false;
+
+  const [loggedInUser, setLoggedInUser] = useState(user);
+  const [isLoggedIn, setIsLoggedIn] = useState(token);
   const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
+  // if (token) {
+  //   // setLoggedInUser(JSON.parse(user))
+  //   // setIsLoggedIn(true);
+  //   navigate("/");
+  // }
+
   const checkUserLogin = () => {
-    const user =  localStorage.getItem("user");
+    const user = localStorage.getItem("user");
     if (localStorage.getItem("token") && localStorage.getItem("user")) {
-      setLoggedInUser(JSON.parse(user))
+      setLoggedInUser(JSON.parse(user));
       setIsLoggedIn(true);
       navigate("/");
     }
@@ -38,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         setLoggedInUser(data.foundUser);
         setIsLoggedIn(true);
         console.log(location);
-        navigate(location);
+        navigate(location ?? "/");
       }
     } catch (e) {
       console.error(e);
@@ -63,7 +74,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkUserLogin();
-  },[]);
+  }, []);
 
   return <Auth.Provider value={value}>{children}</Auth.Provider>;
 };
