@@ -1,0 +1,24 @@
+.post-card {
+    /* width: 250px;
+    height: 250px;
+    background-color: #CCCCCC; */
+    position: relative;
+}
+
+.card-menu {
+    position: absolute;
+    top: 1rem;
+    right: 0px;
+    /* padding: 0.5rem; */
+}
+
+.card-menu div {
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+}
+
+.card-menu div:hover {
+    background-color: yellow;
+    color: black;
+}
