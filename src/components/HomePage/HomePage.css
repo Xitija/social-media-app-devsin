@@ -1,0 +1,32 @@
+.home-container {
+    border-left: 1px solid #4e4e4e;
+    border-right: 1px solid #4e4e4e;
+}
+
+h4 {
+    margin: 0;
+    padding: 0.5rem;
+}
+
+hr {
+    margin: 0;
+    border: 0;
+    height: 1px;
+    background: #4e4e4e;
+    /* #333; */
+}
+
+.feed-heading {
+    display: flex;
+}
+
+.feed-heading .feed-type {
+    margin: auto;
+    padding: 1rem;
+}
+
+.vl {
+    border-left: 1px solid #4e4e4e;
+  }
+  
+  

@@ -1,32 +1,30 @@
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+
+import { BiSolidHomeCircle, BiSolidBookmarks } from "react-icons/bi";
+import { MdExplore } from "react-icons/md";
+import "./Navigation.css";
 
 export const Navigation = () => {
-  const { loginUser, logoutUser, setLocation } = useAuth();
-
   const getActiveStyles = ({ isActive }) => ({
-    padding: "1rem",
-    color: isActive ? "red" : "orange",
+    color: isActive ? "#faba14" : "#fff",
   });
 
   return (
-    <nav
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        borderRight: "0.5px solid",
-      }}
-    >
+    <nav className="nav">
       <NavLink style={getActiveStyles} to="/">
-        Home
+        <div className="nav-link">
+          <BiSolidHomeCircle className="nav-icon" />
+          <div>Home</div>
+        </div>
       </NavLink>
-      <NavLink style={getActiveStyles} to="/explore">
+      <NavLink className="nav-link" style={getActiveStyles} to="/explore">
+        <MdExplore className="nav-icon" />
         Explore
       </NavLink>
-      <NavLink style={getActiveStyles} to="/bookmarks">
+      <NavLink className="nav-link" style={getActiveStyles} to="/bookmarks">
+        <BiSolidBookmarks className="nav-icon" />
         Bookmarks
       </NavLink>
-      <button onClick={logoutUser}>Logout</button>
     </nav>
   );
 };
