@@ -87,7 +87,10 @@ export const createPostHandler = function (schema, request) {
         dislikedBy: [],
       },
       comments: [],
+      name: user.name,
       username: user.username,
+      handle: user.handle,
+      profileAvatar: user.profileAvatar,
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
