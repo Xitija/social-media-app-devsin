@@ -1,0 +1,12 @@
+.bookmarks-container {
+    border-left: 1px solid #4e4e4e;
+    border-right: 1px solid #4e4e4e;
+    border-bottom: 1px solid #4e4e4e;;
+    min-width: 50rem;
+    width: 50rem;
+}
+
+.no-bookmarks {
+    display: flex;
+    justify-content: center;
+}
