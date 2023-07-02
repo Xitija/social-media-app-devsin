@@ -1,11 +1,15 @@
 import { useState } from "react";
 
 import { useData } from "../../contexts/DataContext";
+import { useAuth } from "../../contexts/AuthContext";
+
+import "./Post.css";
 
 export const Post = () => {
   const [newPost, setNewPost] = useState("");
-  const { posts, postDispatcher } = useData();
-
+  const { postDispatcher } = useData();
+  const { loggedInUser } = useAuth();
+  
   const addPostToDB = async (post) => {
     try {
       const passValue = JSON.stringify({ postData: { content: post } });
@@ -21,21 +25,37 @@ export const Post = () => {
 
       const data = await response.json();
 
-      // if 
-      
-      postDispatcher({type : "CREATE", payload : data.posts})
-      return data.posts;
+      // TODO: if
+
+      postDispatcher({ type: "CREATE", payload: data.posts });
     } catch (e) {}
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="What's happening? "
-        onChange={(e) => setNewPost(e.target.value)}
-      />
-      <button onClick={()=>addPostToDB(newPost)}>Post</button>
+    <div className="create-post-card">
+      <div>
+        <img
+          className="profile-avatar"
+          src={loggedInUser.profileAvatar}
+          alt={loggedInUser.name}
+        />
+      </div>
+      <div className="post-content">
+        <textarea
+          placeholder="What's happening? "
+          onChange={(e) => setNewPost(e.target.value)}
+        ></textarea>
+        <div className="post-buttons">
+          <button
+            onClick={() => {
+              addPostToDB(newPost);
+              setNewPost("");
+            }}
+          >
+            Post
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,56 @@
+.create-post-card {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.create-post-card ::placeholder {
+    color: #4e4e4e;
+}
+
+.create-post-card .profile-avatar {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 2rem;
+    padding: 0.5rem;
+}
+
+.create-post-card .post-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post-content textarea {
+    background-color: #1b1b1b;
+    color: white;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+.post-content .post-buttons {
+    padding: 0.5rem 0 0 0;
+    display: flex;
+    justify-content: end;
+}
+
+.post-buttons button {
+    padding: 0.2rem 0.5rem;
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+    color: white;
+    background-color: #fab914;
+    color: black;
+    border: #fab914 solid;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+
+.post-buttons button:hover {
+    background-color: white;
+    border: white solid;
+}
