@@ -1,10 +1,10 @@
-import { useData } from "../../contexts/DataContext";
+import { useUsers } from "../../contexts/UserContext";
 import { PostCard } from "../PostCard/PostCard";
 
 import "./Bookmarks.css";
 
 export const Bookmarks = () => {
-  const { getUserBookmarks } = useData();
+  const { getUserBookmarks } = useUsers();
 
   const bookmarks = getUserBookmarks();
 
