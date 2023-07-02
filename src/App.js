@@ -10,6 +10,7 @@ import "./App.css";
 import { Bookmarks } from "./components/Bookmarks/Bookmarks";
 import { Explore } from "./components/Explore/Explore";
 import { HomePage } from "./components/HomePage/HomePage";
+import { Landing } from "./pages/Landing/Landing";
 
 function App() {
   return (
@@ -17,14 +18,14 @@ function App() {
       <header>
         <Header />
       </header>
-      <div className="content" style={{display:"flex"}}>
-      <Navigation />  
+      <div className="content" style={{ display: "flex" }}>
+        {/* <Navigation className="navigation" /> */}
         <Routes>
           <Route
             path="/"
             element={
               <RequiresAuth>
-                <HomePage />
+                <Landing />
               </RequiresAuth>
             }
           />
@@ -33,7 +34,7 @@ function App() {
             path="/explore"
             element={
               <RequiresAuth>
-                <Explore />
+                <Landing />
               </RequiresAuth>
             }
           />
@@ -41,7 +42,7 @@ function App() {
             path="/bookmarks"
             element={
               <RequiresAuth>
-                <Bookmarks />
+                <Landing />
               </RequiresAuth>
             }
           />
@@ -57,7 +58,6 @@ function App() {
           <Route path="/login" element={<Authentication />} />
           {/* <Route path="*" element={<Error />} /> */}
         </Routes>
-        <UserSuggestions />
       </div>
     </div>
   );
