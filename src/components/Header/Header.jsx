@@ -9,8 +9,6 @@ import { useAuth } from "../../contexts/AuthContext";
 export const Header = () => {
   const { loggedInUser } = useAuth();
 
-  console.log(loggedInUser.profileAvatar, "LIU");
-
   return (
     <nav className="nav-bar">
       <NavLink to="/" style={{ display: "flex", alignItems: "center" }}>
