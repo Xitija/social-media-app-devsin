@@ -7,10 +7,11 @@ import {
   AiFillEdit,
   AiFillDelete,
 } from "react-icons/ai";
-import { BsBookmarkFill, BsBookmark } from "react-icons/bs";
+import { BsBookmarkFill, BsBookmark, BsDot } from "react-icons/bs";
 // import { IoHeartDislikeOutline, IoHeartDislikeSharp } from "react-icons/io5";
 import { BiCommentDetail } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
+import { PiDotBold } from "react-icons/pi";
 
 import { useData } from "../../contexts/DataContext";
 import { useAuth } from "../../contexts/AuthContext";
@@ -25,21 +26,60 @@ export const PostCard = ({ post }) => {
   const currentUserToken = localStorage.getItem("token");
 
   //TODO: can we move to context
-  // USER PROFILE < FULL POST VIEW , sign in
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
   const { loggedInUser } = useAuth();
   const currentUser = users.find(
     ({ username }) => username === loggedInUser.username
   );
 
+  const popupContent = (
+    <div>
+      <h2>Edit Post</h2>
+      <div className="edit-post">
+        <div>
+          <img className="profile-avatar" src={currentUser.profileAvatar} />
+        </div>
+        <div className="content">
+          <textarea
+            type="text"
+            value={editPost.content}
+            onInput={(e) =>
+              setEditPost({
+                ...editPost,
+                content: e.target.value,
+              })
+            }
+          ></textarea>
+          <div className="button-container">
+            <button onClick={() => setEditModal(false)}>Close</button>
+            <button
+              onClick={() => {
+                setEditModal(false);
+                handleEditPost();
+              }}
+              disabled={!editPost?.content?.trim()}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const handleEdit = (post) => {
-    console.log(post);
     setEditPost(post);
     setEditModal(true);
     setShowModal(false);
   };
 
   const handleEditPost = async () => {
-    console.log(editPost);
     try {
       const passValue = JSON.stringify({
         postData: { content: editPost.content },
@@ -56,8 +96,7 @@ export const PostCard = ({ post }) => {
 
       const data = await response.json();
 
-      // if
-      console.log(data);
+      // TODO:if
       postDispatcher({ type: "CREATE", payload: data.posts });
       return data.posts;
     } catch (e) {}
@@ -74,8 +113,6 @@ export const PostCard = ({ post }) => {
       });
 
       const data = await response.json();
-
-      console.log(data, "DEl");
 
       if (data.posts) {
         postDispatcher({ type: "DELETE", payload: data.posts });
@@ -148,7 +185,7 @@ export const PostCard = ({ post }) => {
       }
 
       const data = await response.json();
-      console.log(data);
+
       if (data.bookmarks) {
         setBookmarks(data.bookmarks);
       } else {
@@ -164,10 +201,8 @@ export const PostCard = ({ post }) => {
   };
 
   const userHasBookmarked = () => {
-    return bookmarks.some((bookmark) => bookmark._id === post._id);
+    return bookmarks.some((bookmark) => bookmark === post._id);
   };
-
-  // console.log(userHasLiked(), "hasliked");
 
   const likedByUser = userHasLiked();
 
@@ -175,96 +210,98 @@ export const PostCard = ({ post }) => {
 
   return (
     <>
-      <div className="post-card" style={{ border: "0.5px solid" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            {post.name} @{post.handle} {post.createdAt}
-          </div>
-          <div>
-            {post.username === currentUser.username ? (
-              <CiMenuKebab
-                onClick={() => {
-                  console.log("clicked");
-                  setShowModal(!showModal);
-                }}
-                style={{ backgroundColor: "red" }}
-              />
-            ) : (
-              ""
-            )}
-          </div>
+      <div className="post-card-container">
+        <div>
+          <img
+            className="profile-avatar"
+            src={post.profileAvatar}
+            alt={post.name}
+          />
         </div>
-        {showModal && (
-          <div className="card-menu">
-            <div onClick={() => handleEdit(post)}>
-              <AiFillEdit />
-              Edit
+        <div className="post-card">
+          <div className="post-card-detail">
+            <div>
+              <span>{post.name}</span>
+              <span className="other-details">
+                <span>@{post.handle}</span>
+                <span>-</span>
+                <span>
+                  {new Date(post.createdAt).toLocaleDateString(
+                    "en-US",
+                    options
+                  )}
+                </span>
+              </span>
             </div>
-            <div onClick={() => handleDeletePost(post._id)}>
-              <AiFillDelete />
-              Delete
+            <div>
+              {post.username === currentUser.username ? (
+                <CiMenuKebab
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setShowModal(!showModal);
+                  }}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
-        )}
-        <p>{post.content}</p>
-        <hr />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: "0.5rem",
-            alignItems: "center",
-          }}
-        >
-          <span
-            onClick={() =>
-              likedByUser
-                ? handleLikePost(post._id, "DISLIKE")
-                : handleLikePost(post._id, "LIKE")
-            }
-          >
-            {likedByUser ? <AiFillHeart /> : <AiOutlineHeart />}
-            <p>{post.likes.likeCount}</p>
-          </span>
-
-          <span>
-            <BiCommentDetail />
-            <p>{post.comments.length}</p>
-          </span>
-          <span
-            onClick={() =>
-              bookmarkedByUser
-                ? handleBookmarkPost(post._id, "REMOVE_BOOKMARK")
-                : handleBookmarkPost(post._id, "ADD_BOOKMARK")
-            }
-          >
-            {bookmarkedByUser ? <BsBookmarkFill /> : <BsBookmark />}
-          </span>
+          {showModal && (
+            <div className="card-menu">
+              <div onClick={() => handleEdit(post)}>
+                <AiFillEdit />
+                Edit
+              </div>
+              <div
+                style={{ color: "red" }}
+                onClick={() => handleDeletePost(post._id)}
+              >
+                <AiFillDelete />
+                Delete
+              </div>
+            </div>
+          )}
+          <p className="post-content">{post.content}</p>
+          <div className="post-actions">
+            <div
+              className="action"
+              onClick={() =>
+                likedByUser
+                  ? handleLikePost(post._id, "DISLIKE")
+                  : handleLikePost(post._id, "LIKE")
+              }
+            >
+              <span className="icon like">
+                {likedByUser ? <AiFillHeart /> : <AiOutlineHeart />}
+              </span>
+              <span>{post.likes.likeCount ? post.likes.likeCount : ""}</span>
+            </div>
+            <div className="action">
+              <span className="icon comment">
+                <BiCommentDetail />
+              </span>
+              <span>{post.comments.length ? post.comments.length : ""}</span>
+            </div>
+            <span
+              className="bookmark"
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                bookmarkedByUser
+                  ? handleBookmarkPost(post._id, "REMOVE_BOOKMARK")
+                  : handleBookmarkPost(post._id, "ADD_BOOKMARK")
+              }
+            >
+              {bookmarkedByUser ? <BsBookmarkFill /> : <BsBookmark />}
+            </span>
+          </div>
         </div>
       </div>
-      <Modal isOpen={showEditModal} onRequestClose={() => setEditModal(false)}>
-        <h2>Edit Post</h2>
-        <input
-          type="text"
-          value={editPost.content}
-          onInput={(e) =>
-            setEditPost({
-              ...editPost,
-              content: e.target.value,
-            })
-          }
-        ></input>
-        <button onClick={() => setEditModal(false)}>Close</button>
-        <button
-          onClick={() => {
-            setEditModal(false);
-            handleEditPost();
-          }}
-          disabled={!editPost?.content?.trim()}
-        >
-          Save
-        </button>
+      <Modal
+        className="pop-up-container"
+        isOpen={showEditModal}
+        onRequestClose={() => setEditModal(false)}
+      >
+        {popupContent}
       </Modal>
     </>
   );
