@@ -48,7 +48,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(data.foundUser));
         setLoggedInUser(data.foundUser);
         setIsLoggedIn(true);
-        console.log(location);
         navigate(location ?? "/");
       }
     } catch (e) {
