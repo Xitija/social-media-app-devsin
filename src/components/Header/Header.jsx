@@ -22,7 +22,7 @@ export const Header = () => {
       </NavLink>
 
       <div className="navigation">
-        <NavLink to="/profile">
+        <NavLink to={`/profile/${loggedInUser.handle}`}>
           <img className="current-profile-avatar"
             src={loggedInUser.profileAvatar ? loggedInUser.profileAvatar : ""}
             alt="profile-avatar"
