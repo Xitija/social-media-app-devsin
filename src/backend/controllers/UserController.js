@@ -20,9 +20,9 @@ export const getAllUsersHandler = function () {
  * */
 
 export const getUserHandler = function (schema, request) {
-  const userId = request.params.userId;
+  const handle = request.params.userId;
   try {
-    const user = schema.users.findBy({ _id: userId }).attrs;
+    const user = schema.users.findBy({ handle: handle }).attrs;
     return new Response(200, {}, { user });
   } catch (error) {
     return new Response(
@@ -61,9 +61,7 @@ export const editUserHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "Username cannot be changed",
-          ],
+          errors: ["Username cannot be changed"],
         }
       );
     }
@@ -233,9 +231,7 @@ export const followUserHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "You cannot follow yourself"
-          ],
+          errors: ["You cannot follow yourself"],
         }
       );
     }
