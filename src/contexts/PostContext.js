@@ -135,6 +135,28 @@ export const PostsProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const addPostToDB = async (post) => {
+    try {
+      const passValue = JSON.stringify({ postData: { content: post } });
+
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token"),
+        },
+        body: passValue,
+      });
+
+      const data = await response.json();
+
+      // TODO: if
+
+      // postDispatcher({ type: "CREATE", payload: data.posts });
+      setPosts(data.posts);
+    } catch (e) {}
+  };
+
   useEffect(() => {
     getAllPosts();
     // return () => console.log("Data Provider unmounted");
@@ -144,6 +166,7 @@ export const PostsProvider = ({ children }) => {
     posts,
     getPosts,
     setPosts,
+    addPostToDB,
     handleDeletePost,
     handleLikePost,
     handleEditPost
