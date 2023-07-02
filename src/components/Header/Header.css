@@ -6,6 +6,8 @@
     align-items: center;
     font-family: 'Roboto Mono', monospace;
     background-color: black;
+    width: 100%;
+    position: sticky;
 }
 
 .logo {
@@ -24,40 +26,16 @@ a {
     text-decoration: none;
 }
 
-.navigation {
+.logout {
     display: flex;
     flex-direction: row;
 }
 
-.nav-link {
-    display: block;
-    padding: 1em;
+.current-profile-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 2rem;
+    padding: 0.3rem;
 }
 
-.nav-link :hover {
-    color: white;
-}
-
-.wrapper {
-    position: relative;
-}
-
-.icon {
-    height: 1.5rem;
-    width: 1.5rem;
-    padding: 4px;
-    position: absolute;
-    box-sizing: border-box;
-    top: 50%;
-    left: 2px;
-    transform: translateY(-50%);
-}
-
-.input:focus {
-    outline: none;
-    border: 0.12rem solid #ff9824;
-}
-
-::placeholder {
-    margin-left: 1rem;
-}

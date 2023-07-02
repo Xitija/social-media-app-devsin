@@ -4,7 +4,13 @@ import { RiUser3Fill } from "react-icons/ri";
 import "../Header/Header.css";
 import logo from "../../assets/logo.png";
 
+import { useAuth } from "../../contexts/AuthContext";
+
 export const Header = () => {
+  const { loggedInUser } = useAuth();
+
+  console.log(loggedInUser.profileAvatar, "LIU");
+
   return (
     <nav className="nav-bar">
       <NavLink to="/" style={{ display: "flex", alignItems: "center" }}>
@@ -18,18 +24,11 @@ export const Header = () => {
       </NavLink>
 
       <div className="navigation">
-        <div>
-          <NavLink to="/login" className="nav-link">
-            <button>Log In</button>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to="/signup" className="nav-link">
-            <button>Sign Up</button>
-          </NavLink>
-        </div>
-        <NavLink to="/profile" className="nav-link">
-          <RiUser3Fill color="#faba14" size={25} strokeWidth="1.2" />
+        <NavLink to="/profile">
+          <img className="current-profile-avatar"
+            src={loggedInUser.profileAvatar ? loggedInUser.profileAvatar : ""}
+            alt="profile-avatar"
+          />
         </NavLink>
       </div>
     </nav>
