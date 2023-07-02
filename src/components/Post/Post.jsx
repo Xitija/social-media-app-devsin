@@ -1,35 +1,14 @@
 import { useState } from "react";
 
-import { useData } from "../../contexts/DataContext";
+import { usePosts } from "../../contexts/PostContext";
 import { useAuth } from "../../contexts/AuthContext";
 
 import "./Post.css";
 
 export const Post = () => {
   const [newPost, setNewPost] = useState("");
-  const { postDispatcher } = useData();
+  const { addPostToDB } = usePosts();
   const { loggedInUser } = useAuth();
-  
-  const addPostToDB = async (post) => {
-    try {
-      const passValue = JSON.stringify({ postData: { content: post } });
-
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: localStorage.getItem("token"),
-        },
-        body: passValue,
-      });
-
-      const data = await response.json();
-
-      // TODO: if
-
-      postDispatcher({ type: "CREATE", payload: data.posts });
-    } catch (e) {}
-  };
 
   return (
     <div className="create-post-card">
@@ -43,6 +22,7 @@ export const Post = () => {
       <div className="post-content">
         <textarea
           placeholder="What's happening? "
+          value={newPost}
           onChange={(e) => setNewPost(e.target.value)}
         ></textarea>
         <div className="post-buttons">
@@ -51,6 +31,7 @@ export const Post = () => {
               addPostToDB(newPost);
               setNewPost("");
             }}
+            disabled={!newPost.trim()}
           >
             Post
           </button>

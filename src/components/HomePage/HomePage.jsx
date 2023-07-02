@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useData } from "../../contexts/DataContext";
+import { usePosts } from "../../contexts/PostContext";
 
 import { Post } from "../Post/Post";
 import { PostCard } from "../PostCard/PostCard";
@@ -8,7 +8,7 @@ import "./HomePage.css";
 
 export const HomePage = () => {
   const [showPosts, setShowPosts] = useState("Latest");
-  const { getPosts } = useData();
+  const { getPosts } = usePosts();
 
   return (
     <div className="home-container">

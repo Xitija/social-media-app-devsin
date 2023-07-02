@@ -1,10 +1,10 @@
-import { useData } from "../../contexts/DataContext";
+import { usePosts } from "../../contexts/PostContext";
 import { PostCard } from "../PostCard/PostCard";
 
 import "./Explore.css"
 
 export const Explore = () => {
-  const { posts } = useData();
+  const { posts } = usePosts();
 
   return (
     <div className="explore-container">
