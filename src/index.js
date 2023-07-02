@@ -7,16 +7,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { makeServer } from "./server";
 import { AuthProvider } from "./contexts/AuthContext";
-import { DataProvider } from "./contexts/DataContext";
+import { PostsProvider } from "./contexts/PostContext";
+import { UsersProvider } from "./contexts/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <DataProvider>
-          <App />
-        </DataProvider>
+        <PostsProvider>
+          <UsersProvider>
+            <App />
+          </UsersProvider>
+        </PostsProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>
