@@ -14,7 +14,7 @@ export const Post = () => {
     <div className="create-post-card">
       <div>
         <img
-          className="profile-avatar"
+          className="create-profile-avatar"
           src={loggedInUser.profileAvatar}
           alt={loggedInUser.name}
         />

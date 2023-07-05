@@ -9,12 +9,11 @@
     color: #4e4e4e;
 }
 
-.create-post-card .profile-avatar {
+.create-post-card .create-profile-avatar {
     width: 3rem;
     height: 3rem;
     object-fit: cover;
     border-radius: 2rem;
-    padding: 0.5rem;
 }
 
 .create-post-card .post-content {
@@ -30,6 +29,7 @@
     font-family: "Montserrat", sans-serif;
     font-size: 0.9rem;
     padding: 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .post-content .post-buttons {
@@ -53,4 +53,10 @@
 .post-buttons button:hover {
     background-color: white;
     border: white solid;
+}
+
+.post-buttons button:disabled,
+button[disabled]{
+  border: solid #999999;
+  background-color:#999999;
 }
