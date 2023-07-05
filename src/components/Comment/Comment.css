@@ -1,0 +1,24 @@
+.comment-section {
+    display: flex;
+    align-items: center;
+}
+
+.comment-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-content {
+    padding: 0 4rem 0.5rem;
+}
+
+.comment-date {
+    padding: 0 0.3rem;
+    color: #e2e2e2;
+    font-weight: 300;
+}
+
+.comment-user-handle {
+    color: #e2e2e2;
+    font-weight: 300;
+}
