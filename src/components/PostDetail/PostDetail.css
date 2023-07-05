@@ -1,0 +1,90 @@
+.post-detail-container {
+  border-left: 1px solid #4e4e4e;
+  border-right: 1px solid #4e4e4e;
+  border-bottom: 1px solid #4e4e4e;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-heading {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.post-user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.single-post-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-post-content-container {
+  display: flex;
+  position: relative;
+  justify-content: space-between
+}
+
+.single-post-content {
+  padding: 0.5rem 0 0.5rem 1rem;
+  font-weight: lighter;
+}
+
+.single-post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  width: 30%;
+}
+
+.card-menu {
+  position: absolute;
+  top: 1rem;
+  right: 0px;
+  border: #4e4e4e;
+  background-color: black;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+}
+
+.card-menu div {
+  background-color: black;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.card-menu div:hover {
+  background-color: #fab914;
+  color: black;
+}
+
+.single-post-actions .action {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.single-post-actions .icon {
+  font-size: 1.2rem;
+  padding-right: 0.3rem;
+  cursor: pointer;
+}
+
+.single-post-detail .user-handle {
+  color: #e2e2e2;
+  font-weight: 300;
+}
+
+.single-post-detail .post-date {
+  padding: 0 0.3rem;
+  color: #e2e2e2;
+  font-weight: 300;
+}
