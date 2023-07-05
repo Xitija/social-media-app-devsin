@@ -24,14 +24,6 @@
     font-weight: 200;
 }
 
-.profile-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    object-fit: cover;
-    border-radius: 2rem;
-    padding: 0.5rem;
-}
-
 .post-card .post-content {
     font-weight: lighter;
     font-size: 0.95rem;

@@ -9,7 +9,6 @@ import {
   AiFillDelete,
 } from "react-icons/ai";
 import { BsBookmarkFill, BsBookmark } from "react-icons/bs";
-// import { IoHeartDislikeOutline, IoHeartDislikeSharp } from "react-icons/io5";
 import { BiCommentDetail } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
@@ -20,8 +19,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import "./PostCard.css";
 
 export const PostCard = ({ post }) => {
-  const { setPosts, handleDeletePost, handleLikePost, handleEditPost } =
-    usePosts();
+  const { handleDeletePost, handleLikePost, handleEditPost } = usePosts();
   const { users, bookmarks, handleBookmarkPost } = useUsers();
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setEditModal] = useState(false);
@@ -125,7 +123,12 @@ export const PostCard = ({ post }) => {
                 <span>{post.name}</span>
               </Link>
               <span className="other-details">
-                <span>@{post.handle}</span>
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to={`/profile/${post.handle}`}
+                >
+                  <span>@{post.handle}</span>
+                </Link>
                 <span>-</span>
                 <span>
                   {new Date(post.createdAt).toLocaleDateString(
