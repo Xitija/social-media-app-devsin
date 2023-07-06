@@ -1,7 +1,7 @@
 .home-container {
     border-left: 1px solid #4e4e4e;
     border-right: 1px solid #4e4e4e;
-    min-width: 40rem;
+    /* min-width: 40rem; */
 }
 
 h4 {
@@ -24,6 +24,7 @@ hr {
 .feed-heading .feed-type {
     margin: auto;
     padding: 1rem;
+    cursor: pointer;
 }
 
 .vl {

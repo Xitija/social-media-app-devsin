@@ -1,4 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans:wght@300;500&family=Roboto:wght@300;500&display=swap');
 
-/* faba14 -yellow */
-/* #273d44 bg  */
+.content {
+    display: xflex;
+    padding: 0 4rem
+}
+
+.profile-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 2rem;
+    padding: 0.5rem;
+}
