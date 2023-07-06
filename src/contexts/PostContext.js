@@ -16,6 +16,7 @@ export const PostsProvider = ({ children }) => {
   // console.log("Data Provider render");
   // const [posts, postDispatcher] = useReducer(postReducer, initialPosts);
   const [posts, setPosts] = useState([]);
+  const [singlePost, setSinglePost] = useState({});
 
   const getAllPosts = async () => {
     try {
@@ -157,6 +158,28 @@ export const PostsProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const getPost = async (postId) => {
+    try {
+      const response = await fetch(`/api/posts/${postId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: currentUserToken,
+        },
+      });
+
+      const data = await response.json();
+
+      if (data) {
+        setSinglePost(data.post);
+      } else {
+        console.error(data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     getAllPosts();
     // return () => console.log("Data Provider unmounted");
@@ -164,12 +187,15 @@ export const PostsProvider = ({ children }) => {
 
   const value = {
     posts,
+    singlePost,
+    setSinglePost,
+    getPost,
     getPosts,
     setPosts,
     addPostToDB,
     handleDeletePost,
     handleLikePost,
-    handleEditPost
+    handleEditPost,
   };
 
   return <Posts.Provider value={value}>{children}</Posts.Provider>;
