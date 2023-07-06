@@ -1,0 +1,69 @@
+.user-suggestions {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 1rem;
+}
+
+.user-suggestions .search {
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 2rem;
+    border: none;
+}
+
+.user-suggestions .users {
+    background-color: black;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 1rem;
+}
+
+.user-suggestions .user-detail {
+    display: flex;
+    align-items: center;
+}
+
+.users .title {
+    margin: 0rem 0rem 0.5rem;
+    font-size: 1.3rem
+}
+
+.users .suggestion-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.suggestion-section .btn-follow {
+    background-color: #faba14;
+    border: #faba14 solid;
+    padding: 0.3rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+input:active {
+    border: none;
+    outline: none;
+    border-color: transparent;
+}
+
+.search-content {
+    position: absolute;
+    background-color: #faba14;
+    color: #000;
+    display: flex;
+    border-radius: 1rem;
+}
+
+.search-content .searches {
+    background-color: forestgreen;
+    text-decoration: none;
+    color: inherit
+}
+
+.search-content .searches:hover {
+    background-color: black;
+}
