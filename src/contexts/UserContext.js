@@ -1,14 +1,17 @@
 import { useContext, createContext, useEffect, useState } from "react";
 
 import { usePosts } from "./PostContext";
+import { useAuth } from "./AuthContext";
 
 export const Users = createContext();
 
 export const UsersProvider = ({ children }) => {
+  const { loggedInUser } = useAuth();
   const { posts } = usePosts();
   const [users, setUsers] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const [userProfile, setUserProfile] = useState();
+  const [searchUser, setSearchUser] = useState("");
 
   const getAllUsers = async () => {
     try {
@@ -22,22 +25,40 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  //   const getUser = async (userId) => {
-  //     try {
-  //       const response = await fetch(`/api/users/${userId}`);
+  const getUser = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
 
-  //       const data = await response.json();
+      const data = await response.json();
 
-  //       if (data) {
-  //         console.log(data);
-  //         setUserProfile(data.user)
-  //       } else {
-  //         console.error(data);
-  //       }
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
+      if (data) {
+        console.log(data);
+        setUserProfile(data.user);
+      } else {
+        console.error(data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const getSuggestedUsers = () => {
+    return users.filter((user) =>
+      loggedInUser.following.find(
+        (currentUser) =>
+          currentUser._id !== user._id && user._id !== loggedInUser._id
+      )
+    );
+  };
+
+  const searchedUsers = () => {
+    return users.filter(
+      ({ name, handle }) => searchUser.length &&
+        (name.toLowerCase().includes(searchUser.toLowerCase()) ||
+        handle.toLowerCase().includes(searchUser.toLowerCase())) 
+    );
+  };
+
   // const getData = async () => {
   //   const users = await fetch("/api/users/");
   //   // const user = await fetch("/api/users/1b83b274-defe-4361-b0c3-1cd19959df91");
@@ -115,7 +136,12 @@ export const UsersProvider = ({ children }) => {
     bookmarks,
     getUserBookmarks,
     handleBookmarkPost,
-    // getUser
+    getUser,
+    userProfile,
+    getSuggestedUsers,
+    searchUser,
+    setSearchUser,
+    searchedUsers,
   };
 
   return <Users.Provider value={value}>{children}</Users.Provider>;
