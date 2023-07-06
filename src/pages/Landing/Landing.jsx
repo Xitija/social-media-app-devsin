@@ -26,7 +26,7 @@ export const Landing = () => {
       {/* Pos fixed , sticky */}
       <div style={{ width: "50%" }}>{getViewComponent()}</div>
       {/*  overflow-y :scroll */}
-      {/* <UserSuggestions /> */}
+      <UserSuggestions />
     </div>
   );
 };
