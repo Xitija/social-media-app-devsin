@@ -49,7 +49,7 @@ export const Login = () => {
           <div style={{ display: "flex ", flexDirection: "column" }}>
             <div className="logo-container">
               <img
-                style={{ width: "10%", backgroundColor: "black" }}
+                style={{ width: "12%", backgroundColor: "black" }}
                 src={logo}
                 alt="DevsIn_logo"
               />

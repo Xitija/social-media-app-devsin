@@ -18,11 +18,12 @@
 .login-text {
     padding: 1rem;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .logo-title {
     font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
 }
 
 #page-wrap {
