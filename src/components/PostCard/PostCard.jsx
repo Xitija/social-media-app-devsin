@@ -48,7 +48,7 @@ export const PostCard = ({ post }) => {
       <h2>Edit Post</h2>
       <div className="edit-post">
         <div>
-          <img className="profile-avatar" src={currentUser.profileAvatar} />
+          <img className="profile-avatar" src={currentUser?.profileAvatar} />
         </div>
         <div className="content">
           <textarea
@@ -86,7 +86,7 @@ export const PostCard = ({ post }) => {
   };
 
   const userHasLiked = () => {
-    return post.likes.likedBy.find((user) => user._id === currentUser._id);
+    return post.likes.likedBy.find((user) => user?._id === currentUser?._id);
   };
 
   const userHasBookmarked = () => {
@@ -107,7 +107,7 @@ export const PostCard = ({ post }) => {
           >
             <img
               className="profile-avatar"
-              src={post.profileAvatar}
+              src={post?.profileAvatar}
               alt={post.name}
             />
           </Link>
@@ -139,7 +139,7 @@ export const PostCard = ({ post }) => {
               </span>
             </div>
             <div>
-              {post.username === currentUser.username ? (
+              {post?.username === currentUser?.username ? (
                 <CiMenuKebab
                   style={{ cursor: "pointer" }}
                   onClick={(e) => {
