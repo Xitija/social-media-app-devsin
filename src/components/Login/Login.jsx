@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
@@ -89,6 +89,13 @@ export const Login = () => {
             Login
           </button>
           <button onClick={() => handleLogin("GUEST")}>Login Guest</button>
+          <p style={{textAlign: "center"}}>
+            Don't have an account? {" "}
+            <Link
+              style={{ textDecoration: "none", color: "#faba14" }}
+              to={`/signup`}
+            >Sign Up</Link>
+          </p>
         </div>
       </div>
       <div>
