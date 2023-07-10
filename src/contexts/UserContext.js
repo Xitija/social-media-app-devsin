@@ -6,7 +6,7 @@ import { useAuth } from "./AuthContext";
 export const Users = createContext();
 
 export const UsersProvider = ({ children }) => {
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, setLoggedInUser } = useAuth();
   const { posts } = usePosts();
   const [users, setUsers] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
@@ -31,9 +31,10 @@ export const UsersProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (data) {
-        console.log(data);
+      if (data.user) {
         setUserProfile(data.user);
+      } else if (!data.user) {
+        setUserProfile(loggedInUser)
       } else {
         console.error(data);
       }
@@ -42,28 +43,34 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  const getSuggestedUsers = () => {
-    return users.filter((user) =>
-      loggedInUser.following.find(
-        (currentUser) =>
-          currentUser._id !== user._id && user._id !== loggedInUser._id
-      )
-    );
-  };
+  // const getSuggestedUsersOld = () => {
+  //   console.log(loggedInUser?.following, "log");
+  //   return users.filter((user) =>
+  //     loggedInUser?.following.find(
+  //       (currentUser) =>
+  //         currentUser._id !== user._id
+  //     )
+  //   );
+  // };
+
+  const getSuggestedUsers = () =>
+    users
+      ?.filter((dbUser) => dbUser.username !== loggedInUser?.username)
+      ?.filter(
+        (eachUser) =>
+          !loggedInUser?.following?.find(
+            (item) => item.username === eachUser.username
+          )
+      );
 
   const searchedUsers = () => {
     return users.filter(
-      ({ name, handle }) => searchUser.length &&
+      ({ name, handle }) =>
+        searchUser.length &&
         (name.toLowerCase().includes(searchUser.toLowerCase()) ||
-        handle.toLowerCase().includes(searchUser.toLowerCase())) 
+          handle.toLowerCase().includes(searchUser.toLowerCase()))
     );
   };
-
-  // const getData = async () => {
-  //   const users = await fetch("/api/users/");
-  //   // const user = await fetch("/api/users/1b83b274-defe-4361-b0c3-1cd19959df91");
-  //   console.log(await users.json(), "users");
-  // };
 
   const getAllBookmarks = async () => {
     try {
@@ -125,6 +132,54 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
+  const handleFollowUser = async (userId, action) => {
+    const currentUserToken = localStorage.getItem("token");
+    try {
+      let response;
+
+      if (action === "FOLLOW") {
+        response = await fetch(`/api/users/follow/${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: currentUserToken,
+          },
+          body: {},
+        });
+      } else if (action === "UNFOLLOW") {
+        response = await fetch(`/api/users/unfollow/${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: currentUserToken,
+          },
+          body: {},
+        });
+      }
+
+      const data = await response.json();
+
+      if (data.user) {
+        setLoggedInUser(data.user);
+        setUserProfile(data.user);
+        setUpdatedUser(data.user);
+        setUpdatedUser(data.followUser);
+      } else {
+        console.error(data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const setUpdatedUser = (updatedUser) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === updatedUser._id ? { ...updatedUser } : user
+      )
+    );
+  };
+
   useEffect(() => {
     getAllUsers();
     getAllBookmarks();
@@ -142,6 +197,7 @@ export const UsersProvider = ({ children }) => {
     searchUser,
     setSearchUser,
     searchedUsers,
+    handleFollowUser,
   };
 
   return <Users.Provider value={value}>{children}</Users.Provider>;
