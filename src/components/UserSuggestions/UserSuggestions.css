@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 30%;
     padding: 1rem;
+    /* overflow: scroll; */
 }
 
 .user-suggestions .search {

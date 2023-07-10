@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import "./UserSuggestions.css";
 
 export const UserSuggestions = () => {
-  const { getSuggestedUsers, searchUser, setSearchUser, searchedUsers } =
-    useUsers();
+  // const 
+  const {
+    getSuggestedUsers,
+    searchUser,
+    setSearchUser,
+    searchedUsers,
+    handleFollowUser,
+  } = useUsers();
 
   const searchedUser = searchedUsers();
 
@@ -24,11 +30,8 @@ export const UserSuggestions = () => {
         {searchedUser.length > 0 && (
           <div className="search-content">
             <div style={{ padding: "1rem" }}>
-              {searchedUser.map(({ name, profileAvatar, handle }) => (
-                <Link
-                  className="searches"
-                  to={`/profile/${handle}`}
-                >
+              {searchedUser.map(({ _id, name, profileAvatar, handle }) => (
+                <Link key={_id} className="searches" to={`/profile/${handle}`}>
                   <div className="user-detail">
                     <div>
                       <img
@@ -48,8 +51,9 @@ export const UserSuggestions = () => {
       <div style={{ padding: "0rem 1rem 1rem" }}>
         <div className="users">
           <div className="title">Suggestions For You</div>
-          {getSuggestedUsers().map(({ name, profileAvatar, handle }) => (
+          {getSuggestedUsers().map(({ _id, name, profileAvatar, handle }) => (
             <Link
+              key={_id}
               className="suggestion-section"
               style={{ textDecoration: "none", color: "inherit" }}
               to={`/profile/${handle}`}
@@ -65,7 +69,16 @@ export const UserSuggestions = () => {
                 <div>{name}</div>
               </div>
               <div>
-                <button className="btn-follow">Follow</button>
+                <button
+                  className="btn-follow"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleFollowUser(_id, "FOLLOW");
+                  }}
+                >
+                  Follow
+                </button>
               </div>
             </Link>
           ))}
