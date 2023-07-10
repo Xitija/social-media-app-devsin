@@ -32,6 +32,7 @@ export const signupHandler = function (schema, request) {
 
     const newUser = {
       _id,
+      profileAvatar: "https://picsum.photos/id/1005/150",
       createdAt: formatDate(),
       updatedAt: formatDate(),
       username,
