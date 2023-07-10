@@ -63,12 +63,35 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const signupUser = async (newUser) => {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(newUser),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        localStorage.setItem("token", data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(data.createdUser));
+        setLoggedInUser(data.createdUser);
+        setIsLoggedIn(true);
+        navigate(location ?? "/");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const value = {
     loggedInUser,
+    setLoggedInUser,
     loginUser,
     logoutUser,
     isLoggedIn,
     setLocation,
+    signupUser
   };
 
   useEffect(() => {
