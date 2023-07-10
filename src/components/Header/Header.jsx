@@ -22,12 +22,12 @@ export const Header = () => {
       </NavLink>
 
       <div className="navigation">
-        <NavLink to={`/profile/${loggedInUser.handle}`}>
+        {loggedInUser.handle && <NavLink to={`/profile/${loggedInUser.handle}`}>
           <img className="current-profile-avatar"
             src={loggedInUser.profileAvatar ? loggedInUser.profileAvatar : ""}
             alt="profile-avatar"
           />
-        </NavLink>
+        </NavLink>}
       </div>
     </nav>
   );
