@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
@@ -18,9 +18,7 @@ export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { signupUser, setLocation } = useAuth();
-
-  const location = useLocation();
+  const { signupUser } = useAuth();
 
   const isEmail = () => {
     if (signup.username.trim().length > 0) {
@@ -196,7 +194,7 @@ export const SignUp = () => {
         </form>
       </div>
       <div>
-        <img src={background} className="signup-container" />
+        <img src={background} className="signup-container" alt="background" />
       </div>
     </>
   );

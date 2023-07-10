@@ -10,21 +10,9 @@ import "./Login.css";
 export const Login = () => {
   const [login, setLogin] = useState({ email: "", password: "" });
 
-  const { loginUser, logoutUser, setLocation } = useAuth();
+  const { loginUser, setLocation } = useAuth();
 
   const location = useLocation();
-
-  const isEmail = (email) => {
-    if (email.trim().length > 0) {
-      return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-    } else {
-      return true;
-    }
-  };
-
-  const isPassword = (password) => {
-    return password.trim().length >= 5 || password.trim() === "" ? true : false;
-  };
 
   const isSubmitReady = () => {
     return login.password.trim() !== "" && login.email.trim() !== "";
@@ -38,9 +26,6 @@ export const Login = () => {
     }
     setLocation(location?.state?.from?.pathname);
   };
-
-  const isEmailValid = isEmail(login.email);
-  const isPasswordValid = isPassword(login.password);
 
   return (
     <>
@@ -89,17 +74,19 @@ export const Login = () => {
             Login
           </button>
           <button onClick={() => handleLogin("GUEST")}>Login Guest</button>
-          <p style={{textAlign: "center"}}>
-            Don't have an account? {" "}
+          <p style={{ textAlign: "center" }}>
+            Don't have an account?{" "}
             <Link
               style={{ textDecoration: "none", color: "#faba14" }}
               to={`/signup`}
-            >Sign Up</Link>
+            >
+              Sign Up
+            </Link>
           </p>
         </div>
       </div>
       <div>
-        <img src={background} className="login-container" />
+        <img src={background} className="login-container" alt="background" />
       </div>
     </>
   );

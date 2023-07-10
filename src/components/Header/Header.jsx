@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { RiUser3Fill } from "react-icons/ri";
 
 import "../Header/Header.css";
 import logo from "../../assets/logo.png";

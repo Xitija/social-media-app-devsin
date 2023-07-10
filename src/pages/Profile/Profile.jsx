@@ -2,9 +2,10 @@ import { useAuth } from "../../contexts/AuthContext";
 import { usePosts } from "../../contexts/PostContext";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../components/PostCard/PostCard";
-import { BsArrowLeft, BsFillCameraFill, BsLink45Deg } from "react-icons/bs";
+import { BsArrowLeft,  BsLink45Deg } from "react-icons/bs"; 
+// BsFillCameraFill,
 import { FiLogOut } from "react-icons/fi";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useUsers } from "../../contexts/UserContext";
@@ -13,7 +14,7 @@ import "./Profile.css";
 export function Profile() {
   const navigate = useNavigate();
   const { getMyPosts } = usePosts();
-  const { loginUser, logoutUser, setLocation, loggedInUser } = useAuth();
+  const { logoutUser, loggedInUser } = useAuth();
   const { userProfile, getUser, users, handleFollowUser } = useUsers();
   const { user } = useParams();
 
@@ -29,7 +30,7 @@ export function Profile() {
     currentUser = loggedInUser;
   }
 
-  const editProfile = () => {};
+  // const editProfile = () => {};
 
   const userHasFollowed = () => {
     return currentUser.following.find(
@@ -56,6 +57,7 @@ export function Profile() {
           <img
             className="user-profile-image"
             src={userProfile?.profileAvatar}
+            alt={userProfile?.name}
           />
           {/* <div style={{}}><BsFillCameraFill /></div> */}
         </div>

@@ -58,7 +58,7 @@ export function PostDetail() {
       <h2>Edit Post</h2>
       <div className="edit-post">
         <div>
-          <img className="profile-avatar" src={currentUser.profileAvatar} />
+          <img className="profile-avatar" src={currentUser?.profileAvatar} alt={currentUser?.name} />
         </div>
         <div className="content">
           <textarea
