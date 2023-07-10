@@ -1,0 +1,88 @@
+.signup-container {
+    background-image: url("../../assets/background.jpg");
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-text {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.logo-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2rem;
+}
+
+#signup-page {
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: black;
+    box-shadow: 0 0 20px black;
+    border: wheat solid 0.5px;
+    border-radius: 1rem;
+    height: fit-content;
+    /* #faba14 */
+}
+
+#bg {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-content label {
+    margin: 0 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.login-content input {
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.login-content button {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    border: none;
+    background: #faba14;
+}
+
+.login-content button:hover {
+    background: white;
+}
+
+.validation {
+    font-size: 0.8rem;
+    margin: 0 0.5rem;
+    color: red;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
