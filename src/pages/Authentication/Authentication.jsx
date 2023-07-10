@@ -6,7 +6,7 @@ export const Authentication = () => {
   const location = useLocation();
 
   return (
-    <div style={{ borderRight: "0.5px solid" }}>
+    <div style={{ display: "contents" }}>
       {location.pathname === "/login" ? <Login /> : <SignUp />}
     </div>
   );
