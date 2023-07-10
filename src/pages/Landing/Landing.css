@@ -1,0 +1,8 @@
+.center-section {
+    width: 50%;
+    overflow: scroll;
+}
+
+.center-section::-webkit-scrollbar {
+    background-color: transparent;
+  }
