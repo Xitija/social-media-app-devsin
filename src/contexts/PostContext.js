@@ -31,12 +31,17 @@ export const PostsProvider = ({ children }) => {
   };
 
   const getPostsforUser = () => {
-    console.log(posts);
     return posts?.filter(
       (currentPost) =>
         loggedInUser.following.find(
           (currentUser) => currentUser.username === currentPost.username
         ) || loggedInUser.username === currentPost.username
+    );
+  };
+
+  const getMyPosts = (currentUser) => {
+    return posts?.filter(
+      (currentPost) => currentPost?.username === currentUser?.username
     );
   };
 
@@ -75,7 +80,7 @@ export const PostsProvider = ({ children }) => {
     }
   };
 
-  const handleLikePost = async (postId, action) => {
+  const handleLikePost = async (postId, action, forPage) => {
     try {
       let response;
 
@@ -101,9 +106,19 @@ export const PostsProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (data.posts) {
+      if (data.post) {
         // postDispatcher({ type: "LIKE", payload: data.posts });
-        setPosts(data.posts);
+        // setPosts(data.post);
+
+        if (forPage === "SINGLE_POST") {
+          setSinglePost(data.post);
+        }
+
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post._id === postId ? { ...data.post } : post
+          )
+        );
       } else {
         console.error(data);
       }
@@ -112,7 +127,7 @@ export const PostsProvider = ({ children }) => {
     }
   };
 
-  const handleEditPost = async (editPost) => {
+  const handleEditPost = async (editPost, forPage) => {
     try {
       const passValue = JSON.stringify({
         postData: { content: editPost.content },
@@ -132,6 +147,11 @@ export const PostsProvider = ({ children }) => {
       // TODO:if
       // postDispatcher({ type: "CREATE", payload: data.posts });
       setPosts(data.posts);
+
+      if (forPage === "SINGLE_POST") {
+        setSinglePost(data.posts.find(({ _id }) => _id === editPost._id));
+      }
+
       return data.posts;
     } catch (e) {}
   };
@@ -191,6 +211,7 @@ export const PostsProvider = ({ children }) => {
     setSinglePost,
     getPost,
     getPosts,
+    getMyPosts,
     setPosts,
     addPostToDB,
     handleDeletePost,
