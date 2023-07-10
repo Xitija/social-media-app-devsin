@@ -18,7 +18,7 @@ function App() {
       <header>
         <Header />
       </header>
-      <div className="content" style={{ display: "flex" }}>
+      <div className="content">
         {/* <Navigation className="navigation" /> */}
         <Routes>
           <Route
@@ -47,10 +47,18 @@ function App() {
             }
           />
           <Route
-            path="/profile"
+            path="/profile/:user"
             element={
               <RequiresAuth>
-                <Profile />
+                <Landing />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/post-details/:postid"
+            element={
+              <RequiresAuth>
+                <Landing />
               </RequiresAuth>
             }
           />
