@@ -34,7 +34,7 @@ export const UsersProvider = ({ children }) => {
       if (data.user) {
         setUserProfile(data.user);
       } else if (!data.user) {
-        setUserProfile(loggedInUser)
+        setUserProfile(loggedInUser);
       } else {
         console.error(data);
       }
@@ -132,7 +132,7 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  const handleFollowUser = async (userId, action) => {
+  const handleFollowUser = async (userId, action, fromSuggested) => {
     const currentUserToken = localStorage.getItem("token");
     try {
       let response;
@@ -161,7 +161,9 @@ export const UsersProvider = ({ children }) => {
 
       if (data.user) {
         setLoggedInUser(data.user);
-        setUserProfile(data.user);
+        if (fromSuggested === "suggested") {
+          setUserProfile(data.user);
+        }
         setUpdatedUser(data.user);
         setUpdatedUser(data.followUser);
       } else {

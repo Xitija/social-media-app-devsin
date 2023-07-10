@@ -74,7 +74,7 @@ export const UserSuggestions = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    handleFollowUser(_id, "FOLLOW");
+                    handleFollowUser(_id, "FOLLOW","suggested");
                   }}
                 >
                   Follow
