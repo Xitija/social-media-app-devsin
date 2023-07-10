@@ -76,7 +76,7 @@ export function PostDetail() {
             <button
               onClick={() => {
                 setEditModal(false);
-                handleEditPost(editPost);
+                handleEditPost(editPost,"SINGLE_POST");
               }}
               disabled={!editPost?.content?.trim()}
             >
@@ -89,9 +89,7 @@ export function PostDetail() {
   );
 
   const userHasLiked = () => {
-    console.log("called");
     return singlePost?.likes?.likedBy.find((user) => {
-      console.log(user._id, currentUser._id, "check");
       return user._id === currentUser._id;
     });
   };
@@ -110,10 +108,6 @@ export function PostDetail() {
   const likedByUser = userHasLiked();
 
   const bookmarkedByUser = userHasBookmarked();
-
-  console.log(likedByUser, "likedByUser");
-
-  console.log(singlePost);
 
   useEffect(() => {
     getPost(postid);
@@ -237,8 +231,8 @@ export function PostDetail() {
               className="action"
               onClick={() =>
                 likedByUser
-                  ? handleLikePost(singlePost._id, "DISLIKE")
-                  : handleLikePost(singlePost._id, "LIKE")
+                  ? handleLikePost(singlePost._id, "DISLIKE","SINGLE_POST")
+                  : handleLikePost(singlePost._id, "LIKE","SINGLE_POST")
               }
             >
               <span className="icon like">
