@@ -1,9 +1,4 @@
-import {
-  useContext,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { useContext, createContext, useEffect, useState } from "react";
 
 import { useAuth } from "./AuthContext";
 export const Posts = createContext();
@@ -155,6 +150,31 @@ export const PostsProvider = ({ children }) => {
     } catch (e) {}
   };
 
+  const handleEditPostImage = async (editPost, profileAvatar) => {
+    try {
+      const passValue = JSON.stringify({
+        postData: { profileAvatar: profileAvatar },
+      });
+
+      const response = await fetch(`/api/posts/edit/${editPost._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token"),
+        },
+        body: passValue,
+      });
+
+      const data = await response.json();
+
+      // TODO:if
+      // postDispatcher({ type: "CREATE", payload: data.posts });
+      setPosts(data.posts);
+
+      return data.posts;
+    } catch (e) {}
+  };
+
   const addPostToDB = async (post) => {
     try {
       const passValue = JSON.stringify({ postData: { content: post } });
@@ -216,6 +236,7 @@ export const PostsProvider = ({ children }) => {
     handleDeletePost,
     handleLikePost,
     handleEditPost,
+    handleEditPostImage
   };
 
   return <Posts.Provider value={value}>{children}</Posts.Provider>;
