@@ -2,14 +2,16 @@ import { useAuth } from "../../contexts/AuthContext";
 import { usePosts } from "../../contexts/PostContext";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../components/PostCard/PostCard";
-import { BsArrowLeft,  BsLink45Deg } from "react-icons/bs"; 
+import { BsArrowLeft, BsLink45Deg } from "react-icons/bs";
 // BsFillCameraFill,
+import { FaUserEdit } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useUsers } from "../../contexts/UserContext";
 import "./Profile.css";
+import { EditProfileModal } from "../../components/EditProfileModal/EditProfileModal";
 
 export function Profile() {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ export function Profile() {
   const { logoutUser, loggedInUser } = useAuth();
   const { userProfile, getUser, users, handleFollowUser } = useUsers();
   const { user } = useParams();
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     getUser(user);
@@ -30,7 +34,9 @@ export function Profile() {
     currentUser = loggedInUser;
   }
 
-  // const editProfile = () => {};
+  const editProfile = () => {
+    setModalOpen(true);
+  };
 
   const userHasFollowed = () => {
     return currentUser.following.find(
@@ -70,13 +76,19 @@ export function Profile() {
             {userProfile?.website}
           </a>
           <div className="follow">
-            <span>{userProfile?.following.length ?? 0} <span className="follow-title">Following</span></span>
-            <span>{userProfile?.followers.length ?? 0} <span className="follow-title">Followers</span></span>
+            <span>
+              {userProfile?.following.length ?? 0}{" "}
+              <span className="follow-title">Following</span>
+            </span>
+            <span>
+              {userProfile?.followers.length ?? 0}{" "}
+              <span className="follow-title">Followers</span>
+            </span>
           </div>
         </div>
         {userProfile?.username === currentUser?.username ? (
           <div className="user-profile-actions">
-            {/* <button onClick={editProfile}>Edit Profile</button> */}
+            <FaUserEdit className="logout" onClick={editProfile} />
             <FiLogOut className="logout" onClick={logoutUser} />
           </div>
         ) : (
@@ -106,6 +118,9 @@ export function Profile() {
           <PostCard key={post._id} post={post} />
         ))}
       </div>
+      {modalOpen && (
+        <EditProfileModal setModalOpen={setModalOpen} modalOpen={modalOpen} />
+      )}
     </div>
   );
 }
