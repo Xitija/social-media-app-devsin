@@ -7,7 +7,7 @@ export const Users = createContext();
 
 export const UsersProvider = ({ children }) => {
   const { loggedInUser, setLoggedInUser } = useAuth();
-  const { posts } = usePosts();
+  const { posts, getMyPosts, handleEditPostImage } = usePosts();
   const [users, setUsers] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const [userProfile, setUserProfile] = useState();
@@ -53,6 +53,7 @@ export const UsersProvider = ({ children }) => {
   //   );
   // };
 
+  // TODO:
   const getSuggestedUsers = () =>
     users
       ?.filter((dbUser) => dbUser.username !== loggedInUser?.username)
@@ -182,6 +183,36 @@ export const UsersProvider = ({ children }) => {
     );
   };
 
+  const updateUserPosts = (profileAvatar) => {
+    const userPosts = getMyPosts(loggedInUser);
+    userPosts.map(
+      async (post) => await handleEditPostImage(post, profileAvatar)
+    );
+  };
+
+  const editUser = async (userData) => {
+    // console.log(userDetails);
+    try {
+      const userResponse = await fetch("/api/users/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ userData: userData }),
+      });
+      if (userResponse.status === 201) {
+        const eu = await userResponse.json();
+        console.log(eu.user);
+        setLoggedInUser(eu.user);
+        setUserProfile(eu.user);
+        updateUserPosts(eu.user.profileAvatar);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
     getAllBookmarks();
@@ -200,6 +231,7 @@ export const UsersProvider = ({ children }) => {
     setSearchUser,
     searchedUsers,
     handleFollowUser,
+    editUser,
   };
 
   return <Users.Provider value={value}>{children}</Users.Provider>;
